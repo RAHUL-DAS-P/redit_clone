@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redit_clone/common/sign_in_button.dart';
 import 'package:redit_clone/core/constants/constants.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -39,7 +40,17 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          Image.asset(Constants.googlePath),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Image.asset(
+              Constants.loginPath,
+              height: 400,
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          const SignInButton(),
         ],
       ),
     );
