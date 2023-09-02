@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "798212628790-iktaprdm0ul7ddvp0qp21airb1cgaoqd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.redit_clone",
+            "certificate_hash": "3f9063f597a2f28f4286441948ac645f60fba1fc"
+          }
+        },
+        {
           "client_id": "798212628790-k4p6us2tc7ma3167s2901s29b4r6ujfu.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "798212628790-k4p6us2tc7ma3167s2901s29b4r6ujfu.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "798212628790-il7t40v0tch34oq4dar4rgf0klh7h0qk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.reditClone"
+              }
             }
           ]
         }

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:redit_clone/features/screens/login_screen.dart';
 import 'package:redit_clone/theme/pallete.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:redit_clone/firebase_options.dart';
 
-void main(List<String> args) {
+void main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
