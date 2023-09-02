@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redit_clone/features/screens/login_screen.dart';
 import 'package:redit_clone/theme/pallete.dart';
 
 void main() {
@@ -13,11 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: Pallete.darkModeAppTheme,
-      home: const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
+      home: LoginScreen(),
     );
   }
 }
