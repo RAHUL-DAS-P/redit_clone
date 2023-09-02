@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:redit_clone/core/constants/constants.dart';
-import 'package:redit_clone/theme/pallete.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -22,6 +21,25 @@ class LoginScreen extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
+        ],
+      ),
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 30,
+          ),
+          const Text(
+            "Dive into anything",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              letterSpacing: 0.5,
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Image.asset(Constants.googlePath),
         ],
       ),
     );
