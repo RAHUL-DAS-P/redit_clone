@@ -74,7 +74,7 @@ class _CreateCommunitySCreenState extends ConsumerState<CreateCommunitySCreen> {
                         fontSize: 17,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

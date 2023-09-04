@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:redit_clone/common/error_text.dart';
+import 'package:redit_clone/common/progress_indicator.dart';
+import 'package:redit_clone/features/community/controller/community_contrtoller.dart';
+import 'package:redit_clone/model/community_model.dart';
 import 'package:routemaster/routemaster.dart';
 
 class CommunityListDrawer extends ConsumerWidget {
@@ -20,6 +24,23 @@ class CommunityListDrawer extends ConsumerWidget {
               title: const Text("Create a community"),
               onTap: () => navigateToCreateCommunity(context),
             ),
+            ref.watch(userCommunitiesProvider).when(
+                data: (comms) => Expanded(
+                        child: ListView.builder(
+                      itemBuilder: (BuildContext context, index) {
+                        Community cumm = comms[index];
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(cumm.avatar),
+                          ),
+                          title: Text("r/${cumm.name}"),
+                          onTap: () {},
+                        );
+                      },
+                      itemCount: comms.length,
+                    )),
+                error: (error, stacktrace) => Errortext(text: error.toString()),
+                loading: () => const Loader())
           ],
         ),
       ),
