@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:redit_clone/core/constants/constants.dart';
 import 'package:redit_clone/features/controller/auth_controller.dart';
 import 'package:redit_clone/theme/pallete.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SignInButton extends ConsumerWidget {
   const SignInButton({super.key});

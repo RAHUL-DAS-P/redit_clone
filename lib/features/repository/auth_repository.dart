@@ -1,14 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:redit_clone/core/constants/constants.dart';
 import 'package:redit_clone/core/constants/firebase_constants.dart';
-import 'package:redit_clone/core/failure.dart';
 import 'package:redit_clone/core/providers/firebase_providers.dart';
 import 'package:redit_clone/core/tyde_defs.dart';
 import 'package:redit_clone/model/user_model.dart';
-import 'package:fpdart/fpdart.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepository(
@@ -36,17 +35,14 @@ class AuthRepository {
 
   FutureEither<UserModel> signInWithGoogle() async {
     try {
-      // Sign in with Google using GoogleSignIn
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       final googleAuth = await googleUser?.authentication;
 
-      // Create GoogleAuthProvider credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
 
-      // Sign in to Firebase Authentication using the Google credential
       UserCredential userCredential =
           await _auth.signInWithCredential(credential);
 
@@ -67,12 +63,11 @@ class AuthRepository {
       } else {
         userModel = await getUserData(userCredential.user!.uid).first;
       }
+
       return right(userModel);
     } on FirebaseException catch (e) {
       throw e.message!;
-    } catch (e) {
-      return left(Failure(e.toString()));
-    }
+    } catch (e) {}
   }
 
   Stream<UserModel> getUserData(String uid) {
