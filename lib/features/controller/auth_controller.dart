@@ -8,10 +8,10 @@ import 'package:redit_clone/model/user_model.dart';
 
 final userProvider = StateProvider<UserModel?>((ref) => null);
 
-final authControllerProvider = Provider<AuthController>(
+final authControllerProvider = StateNotifierProvider<AuthController, bool>(
   (ref) {
     return AuthController(
-      authRepository: ref.read(
+      authRepository: ref.watch(
         authRepositoryProvider,
       ),
       ref: ref,
@@ -19,7 +19,7 @@ final authControllerProvider = Provider<AuthController>(
   },
 );
 
-class AuthController {
+class AuthController extends StateNotifier<bool> {
   final AuthRepository _authRepository;
   final Ref _ref;
 
@@ -27,10 +27,13 @@ class AuthController {
     required AuthRepository authRepository,
     required Ref ref,
   })  : _authRepository = authRepository,
-        _ref = ref;
+        _ref = ref,
+        super(false);
 
   void signInWithGoogle(BuildContext context) async {
+    state = true;
     final user = await _authRepository.signInWithGoogle();
+    state = false;
     user.fold(
       (l) => showSnackBar(context, l.message),
       (userModel) =>
