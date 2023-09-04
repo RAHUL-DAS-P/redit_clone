@@ -5,6 +5,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:redit_clone/core/constants/constants.dart';
 import 'package:redit_clone/core/constants/firebase_constants.dart';
+import 'package:redit_clone/core/failure.dart';
 import 'package:redit_clone/core/providers/firebase_providers.dart';
 import 'package:redit_clone/core/tyde_defs.dart';
 import 'package:redit_clone/model/user_model.dart';
@@ -67,7 +68,9 @@ class AuthRepository {
       return right(userModel);
     } on FirebaseException catch (e) {
       throw e.message!;
-    } catch (e) {}
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
   }
 
   Stream<UserModel> getUserData(String uid) {
