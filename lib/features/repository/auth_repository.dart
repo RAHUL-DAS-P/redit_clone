@@ -31,7 +31,7 @@ class AuthRepository {
         _firestore = firestore,
         _googleSignIn = googleSignIn;
 
-  CollectionReference get _user =>
+  CollectionReference get _users =>
       _firestore.collection(FirebaseConstants.usersCollection);
 
   Stream<User?> get authStateChange => _auth.authStateChanges();
@@ -62,7 +62,7 @@ class AuthRepository {
           awards: [],
         );
 
-        await _user.doc(userModel.uid).set(userModel.toMap());
+        await _users.doc(userModel.uid).set(userModel.toMap());
       } else {
         userModel = await getUserData(userCredential.user!.uid).first;
       }
@@ -76,10 +76,7 @@ class AuthRepository {
   }
 
   Stream<UserModel> getUserData(String uid) {
-    return _user.doc(uid).snapshots().map(
-          (event) => UserModel.fromMap(
-            event.data() as Map<String, dynamic>,
-          ),
-        );
+    return _users.doc(uid).snapshots().map(
+        (event) => UserModel.fromMap(event.data() as Map<String, dynamic>));
   }
 }
