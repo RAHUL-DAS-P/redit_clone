@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redit_clone/features/community/screens/community_profile_screen.dart';
 import 'package:redit_clone/features/community/screens/create_community_screen.dart';
 import 'package:redit_clone/features/home/screens/home_screen.dart';
 import 'package:redit_clone/features/screens/login_screen.dart';
@@ -19,6 +20,11 @@ final loggedInRoute = RouteMap(
         ),
     "/create-community": (route) => const MaterialPage(
           child: CreateCommunitySCreen(),
+        ),
+    "/r/:name": (route) => MaterialPage(
+          child: CommunityProfileScreen(
+            name: route.pathParameters["name"]!,
+          ),
         ),
   },
 );
