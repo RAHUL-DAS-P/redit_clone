@@ -7,8 +7,18 @@ import 'package:redit_clone/features/controller/auth_controller.dart';
 import 'package:redit_clone/model/community_model.dart';
 import 'package:routemaster/routemaster.dart';
 
+final getCommunityByNameProvider = StreamProvider.family((ref, String name) {
+  return ref
+      .watch(communityControllerProvider.notifier)
+      .getCommunityByName(name);
+});
+
 final userCommunitiesProvider = StreamProvider((ref) {
-  return ref.watch(communityControllerProvider.notifier).getUserCommities();
+  return ref
+      .watch(
+        communityControllerProvider.notifier,
+      )
+      .getUserCommities();
 });
 
 final communityControllerProvider =
@@ -54,5 +64,9 @@ class CommunityController extends StateNotifier<bool> {
   Stream<List<Community>> getUserCommities() {
     final user = _ref.read(userProvider);
     return _communityRepository.getUserCommunities(user!.uid);
+  }
+
+  Stream<Community> getCommunityByName(String name) {
+    return _communityRepository.getCommunityByName(name);
   }
 }
