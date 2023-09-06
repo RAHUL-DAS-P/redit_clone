@@ -1,9 +1,12 @@
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:redit_clone/common/error_text.dart';
 import 'package:redit_clone/common/progress_indicator.dart';
 import 'package:redit_clone/core/constants/constants.dart';
+import 'package:redit_clone/core/utils.dart';
 import 'package:redit_clone/features/community/controller/community_contrtoller.dart';
 import 'package:redit_clone/theme/pallete.dart';
 
@@ -17,6 +20,18 @@ class EditCommunityScreen extends ConsumerStatefulWidget {
 }
 
 class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
+  Uint8List? uploadfile;
+  void selectBannerImage() async {
+    final res = await pickImage();
+
+    if (res != null) {
+      setState(() {
+        uploadfile = res.files.single.bytes;
+        // bannerFile = File(res.files.first.path!);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ref.watch(getCommunityByNameProvider(widget.name)).when(
@@ -42,32 +57,37 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
                       height: 200,
                       child: Stack(
                         children: [
-                          DottedBorder(
-                            strokeCap: StrokeCap.round,
-                            dashPattern: const [10, 4],
-                            radius: const Radius.circular(10),
-                            color: Pallete
-                                .darkModeAppTheme.textTheme.bodySmall!.color!,
-                            borderType: BorderType.RRect,
-                            child: Container(
-                              width: double.infinity,
-                              height: 150,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
+                          GestureDetector(
+                            onTap: selectBannerImage,
+                            child: DottedBorder(
+                              strokeCap: StrokeCap.round,
+                              dashPattern: const [10, 4],
+                              radius: const Radius.circular(10),
+                              color: Pallete
+                                  .darkModeAppTheme.textTheme.bodySmall!.color!,
+                              borderType: BorderType.RRect,
+                              child: Container(
+                                width: double.infinity,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: uploadfile != null
+                                    ? Image.memory(uploadfile!)
+                                    : community.banner.isEmpty ||
+                                            community.banner ==
+                                                Constants.bannerDefault
+                                        ? const Center(
+                                            child: Icon(
+                                              Icons.camera_alt_outlined,
+                                              size: 40,
+                                            ),
+                                          )
+                                        : Image.network(
+                                            community.banner,
+                                            fit: BoxFit.cover,
+                                          ),
                               ),
-                              child: community.banner.isEmpty ||
-                                      community.banner ==
-                                          Constants.bannerDefault
-                                  ? const Center(
-                                      child: Icon(
-                                        Icons.camera_alt_outlined,
-                                        size: 40,
-                                      ),
-                                    )
-                                  : Image.network(
-                                      community.banner,
-                                      fit: BoxFit.cover,
-                                    ),
                             ),
                           ),
                           Positioned(
