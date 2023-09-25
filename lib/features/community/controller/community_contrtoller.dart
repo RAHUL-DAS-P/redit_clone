@@ -117,9 +117,12 @@ class CommunityController extends StateNotifier<bool> {
 
     final res = await _communityRepository.editCommunity(community);
     state = false;
-    res.fold((l) {
-      print(l.message);
-      showSnackBar(context, l.message);
-    }, (r) => Routemaster.of(context).pop());
+    res.fold(
+      (l) {
+        // print(l.message);
+        showSnackBar(context, l.message);
+      },
+      (r) => Routemaster.of(context).pop(),
+    );
   }
 }

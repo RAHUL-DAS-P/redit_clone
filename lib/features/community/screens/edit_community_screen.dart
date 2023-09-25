@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,8 +20,8 @@ class EditCommunityScreen extends ConsumerStatefulWidget {
 }
 
 class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
-  Uint8List? bannerImage;
-  Uint8List? profileImage;
+  // Uint8List? bannerImage;
+  // Uint8List? profileImage;
   File? bannerFile;
   File? profileFile;
 
@@ -102,7 +101,7 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                       ),
-                                      child: bannerImage != null
+                                      child: bannerFile != null
                                           ? Image.file(bannerFile!)
                                           : community.banner.isEmpty ||
                                                   community.banner ==
@@ -125,7 +124,7 @@ class _EditCommunityScreenState extends ConsumerState<EditCommunityScreen> {
                                   left: 20,
                                   child: GestureDetector(
                                     onTap: selectProfileImage,
-                                    child: (profileImage != null)
+                                    child: (profileFile != null)
                                         ? CircleAvatar(
                                             radius: 32,
                                             backgroundImage:
