@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:redit_clone/core/constants/constants.dart';
@@ -31,6 +32,14 @@ final communityControllerProvider =
       communityRepository: ref.watch(communityRepositoryProvider),
       ref: ref,
     );
+  },
+);
+
+final searchCommunityProvider = StreamProvider.family(
+  (ref, String query) {
+    return ref
+        .watch(communityControllerProvider.notifier)
+        .searchCommunity(query);
   },
 );
 
@@ -124,5 +133,9 @@ class CommunityController extends StateNotifier<bool> {
       },
       (r) => Routemaster.of(context).pop(),
     );
+  }
+
+  Stream<List<Community>> searchCommunity(String query) {
+    return _communityRepository.searchCommunity(query);
   }
 }

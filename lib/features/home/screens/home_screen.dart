@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:redit_clone/features/controller/auth_controller.dart';
+import 'package:redit_clone/features/home/delegates/search_community_delegate.dart';
 import 'package:redit_clone/features/home/drawer/community_drawer.dart';
 
 class HomePage extends ConsumerWidget {
@@ -26,7 +27,12 @@ class HomePage extends ConsumerWidget {
         title: const Text("Home"),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: SearchCommunityDelegate(ref: ref),
+              );
+            },
             icon: const Icon(
               Icons.search,
             ),
